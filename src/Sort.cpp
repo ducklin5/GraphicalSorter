@@ -15,7 +15,7 @@ void bubbleSort (struct ArraynSize );
 void drawLines (struct ArraynSize);
 void bubble_sort( struct ArraynSize p);
 
-sf::Window window(sf::VideoMode(600, 600), "Sort Algorithms");
+
 
 int main()
 {
@@ -50,7 +50,7 @@ int main()
 void drawLines (struct ArraynSize p){
 	//create a window called Sort Algorithms
 	//we will draw to this
-
+	sf::Window window(sf::VideoMode(600, 600), "Sort Algorithms");
 	//make an array of rectangle with the same number of elements as the input array
 	sf::RectangleShape rectangle[p.size];
 	for (int x = 0; x < p.size; x++ )
