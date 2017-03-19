@@ -1,0 +1,76 @@
+#include <iostream>
+#include <SFML/Graphics.hpp>
+#include <time.h>
+#include <functional>
+
+
+void printArray( float a[], const int n);
+void sort (float a[], const int n );
+void swap(float& x, float& y);
+
+int main()
+{
+	int NoOfValues = 30;
+	float a[NoOfValues];
+	int seed = time(NULL);
+	srand(seed);
+	for(int i = 0; i < NoOfValues; i++){
+		a[i] = (rand()/100)%300;
+	};
+	sf::Thread tSort(std::bind(&sort,a,NoOfValues));
+}
+
+//Draw any array of floating numbers as lines
+void drawLines (float a[], const int n ){
+	sf::RenderWindow window(sf::VideoMode(640, 480), "SFML Application");
+	sf::RectangleShape rectangle[n];
+
+	while (window.isOpen())
+	{
+		sf::Event event;
+		while (window.pollEvent(event))
+		{
+			if (event.type == sf::Event::Closed)
+				window.close();
+		}
+		window.clear();
+		for (int x = 0; x < n; x++ ){
+			rectangle[x].setSize(sf::Vector2f(a[x], 1));
+			rectangle[x].setPosition(10, 5 +(x*5));
+		}
+		for (int x = 0; x < n; x++ ){
+			window.draw(rectangle[x]);
+		}
+		window.display();
+	}
+}
+
+
+// Print any array of floating numbers
+void printArray( float a[], const int n )
+{
+	for (int i = 0; i < n - 1; i++) {
+		std::cout << a[i] << ", ";
+	}
+	std::cout << a[n-1] << std::endl;
+}
+
+
+// Create sort function (with assisting swap function) >> not my code
+void swap(float& x, float& y)
+{
+	float temp = x;
+	x = y;
+	y = temp;
+}
+
+void sort( float a[], const int n )
+{
+	for (int i = n-1; i > 0; i--){
+		for (int j = 0; j < i; j++){
+			printArray(a,n);
+			if (a[j] > a[j+1]){swap(a[j],a[j+1]);};
+		}
+	}
+	printArray(a,n);
+}
