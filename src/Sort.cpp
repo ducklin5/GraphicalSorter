@@ -15,8 +15,6 @@ void bubbleSort (struct ArraynSize );
 void drawLines (struct ArraynSize);
 void bubble_sort( struct ArraynSize p);
 
-sf::Window window(sf::VideoMode(600, 600), "Sort Algorithms");
-
 int main()
 {
 
@@ -34,6 +32,7 @@ int main()
 		Param.set[i] = rand()%300;
 	};
 
+	struct ArraynSize Param_2 = Param;
 
 	// Draw our array of random numbers as lines
 	sf::Thread tDrawLines(&drawLines,Param);
@@ -43,14 +42,15 @@ int main()
 	sf::sleep(sf::seconds(2));
 	// Sort our Array of random numbers
 	tSort.launch();
-	return 0;
 }
 
 //Draw any array of floating numbers as lines
 void drawLines (struct ArraynSize p){
 	//create a window called Sort Algorithms
 	//we will draw to this
+	sf::RenderWindow window(sf::VideoMode(600, 600), "Sort Algorithms");
 
+	sf::Vector2f Center(1000, 1000);
 	//make an array of rectangle with the same number of elements as the input array
 	sf::RectangleShape rectangle[p.size];
 	for (int x = 0; x < p.size; x++ )
